@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://0p7umiewi6j1"]
+
+[ext_resource type="PackedScene" uid="uid://drmtawiyfbnma" path="res://planet.tscn" id="1_vea6p"]
+[ext_resource type="PackedScene" uid="uid://nur7rbn83uyj" path="res://player.tscn" id="2_d70i6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xni4u"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_5tc10"]
+sky_material = SubResource("ProceduralSkyMaterial_xni4u")
+
+[sub_resource type="Environment" id="Environment_3jtrh"]
+background_mode = 2
+sky = SubResource("Sky_5tc10")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Sandbox" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3jtrh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Planet" parent="." instance=ExtResource("1_vea6p")]
+
+[node name="Planet2" parent="." instance=ExtResource("1_vea6p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3209, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_d70i6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8644, 0)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -258.0
+offset_top = -256.0
+offset_right = 254.0
+offset_bottom = 256.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.34776, 0, 25.0673)
